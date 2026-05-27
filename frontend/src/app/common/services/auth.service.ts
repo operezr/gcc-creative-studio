@@ -23,7 +23,9 @@ import {Auth, IdTokenResult} from '@angular/fire/auth';
 import {UserService} from '../services/user.service';
 import {
   GoogleAuthProvider,
+  OAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
   UserCredential,
 } from '@angular/fire/auth';
 import {Observable, from, throwError, of} from 'rxjs';
@@ -101,6 +103,30 @@ export class AuthService {
       }),
       catchError((error: any) => {
         console.error('An error occurred during the sign-in process:', error);
+        return throwError(
+          () => new Error(`Sign-in failed. Please try again. ${error}`),
+        );
+      }),
+    );
+  }
+
+  /**
+   * Initiates OIDC sign-in flow.
+   *
+   * @param email The user's email to pass as a login hint
+   */
+  signInWithOIDC(email: string): Observable<void> {
+    const providerId = environment.OIDC_PROVIDER_ID || 'oidc.gitlab';
+    const oidcProvider = new OAuthProvider(providerId);
+    if (email) {
+      oidcProvider.setCustomParameters({
+        login_hint: email,
+      });
+    }
+
+    return from(signInWithRedirect(this.auth, oidcProvider)).pipe(
+      catchError((error: any) => {
+        console.error('An error occurred during OIDC sign-in process:', error);
         return throwError(
           () => new Error(`Sign-in failed. Please try again. ${error}`),
         );

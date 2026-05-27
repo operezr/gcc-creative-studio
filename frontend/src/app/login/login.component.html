@@ -42,9 +42,24 @@
       mat-raised-button
       color="primary"
       (click)="loginWithGoogle()"
-      class="w-full max-w-xs h-12 text-lg"
+      class="w-full max-w-xs h-12 text-lg mb-4"
     >
       Login with Google
+    </button>
+    <mat-divider class="w-full max-w-xs mb-4"></mat-divider>
+    <p class="login-app-text text-lg">Or login with your Enterprise email</p>
+    <mat-form-field appearance="outline" class="w-full max-w-xs custom-input">
+      <mat-label>Email Address</mat-label>
+      <input matInput [(ngModel)]="email" placeholder="name@company.com" (keyup.enter)="loginWithOIDC()">
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="loginWithOIDC()"
+      class="w-full max-w-xs h-12 text-lg"
+      [disabled]="!email"
+    >
+      Login with Email
     </button>
     <mat-spinner class="mt-5" [diameter]="50" *ngIf="this.loader"></mat-spinner>
   </div>
@@ -75,9 +90,26 @@
           mat-raised-button
           color="primary"
           (click)="loginWithGoogle()"
-          class="w-full h-12 text-lg login-btn"
+          class="w-full h-12 text-lg login-btn mb-4"
         >
           Login with Google
+        </button>
+        <mat-divider class="w-full mb-4"></mat-divider>
+        <p class="register-text mb-4">
+          Or login with your Enterprise email
+        </p>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Email Address</mat-label>
+          <input matInput [(ngModel)]="email" placeholder="name@company.com" (keyup.enter)="loginWithOIDC()">
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="loginWithOIDC()"
+          class="w-full h-12 text-lg login-btn"
+          [disabled]="!email"
+        >
+          Login with Email
         </button>
         <mat-spinner
           class="mt-5 m-auto"

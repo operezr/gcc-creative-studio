@@ -47,6 +47,7 @@ frontend_secrets = [
   "FIREBASE_APP_ID",           # Your Firebase Web App ID
   "FIREBASE_MEASUREMENT_ID",   # Your Google Analytics Measurement ID
   "GOOGLE_CLIENT_ID",          # Your Google OAuth 2.0 Client ID for web
+  "OIDC_PROVIDER_ID",          # The Provider ID for your OIDC provider in Identity Platform
 ]
 
 backend_secrets = [

@@ -41,6 +41,7 @@ export class LoginComponent {
   loader = false;
   invalidLogin = false;
   errorMessage = '';
+  email = '';
   isBrowser: boolean;
 
   constructor(
@@ -127,6 +128,26 @@ export class LoginComponent {
       });
     }
   }
+
+  loginWithOIDC() {
+    if (!this.email) return;
+    this.loader = true;
+    this.invalidLogin = false;
+    this.errorMessage = '';
+
+    this.authService.signInWithOIDC(this.email).subscribe({
+      next: () => {
+        // Redirection happens automatically.
+        // We set loader = false just in case, but page will unload.
+        this.loader = false;
+      },
+      error: error => {
+        this.loader = false;
+        this.handleLoginError(error);
+      },
+    });
+  }
+
 
   private handleLoginError(error: any, postErrorAction?: () => void) {
     this.loader = false;
