@@ -8,6 +8,7 @@ frontend_service_name = "cstudio-frontend-dev" # This is the Cloud Run service n
 firebase_site_id      = "YOUR_FIREBASE_SITE_ID" # (Optional) Custom Firebase Hosting Site ID, defaults to the gcp_project_id
 
 # --- GitHub Repo Details ---
+github_base_url    = "https://github.com"
 github_conn_name   = "gh-repo-owner-con"
 github_repo_owner  = "RepoOwnerName"
 github_repo_name   = "repo-owner-gcc-creative-studio"

@@ -46,6 +46,12 @@ variable "firebase_site_id" {
 }
 
 # --- GitHub Repo Details ---
+variable "github_base_url" {
+  type        = string
+  description = "The base URL of the GitHub instance (e.g., https://github.com)."
+  default     = "https://github.com"
+}
+
 variable "github_conn_name" {
   type        = string
   description = "The name of the Cloud Build GitHub connection."

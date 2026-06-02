@@ -45,6 +45,12 @@ variable "fe_build_substitutions" {
 }
 
 # Common GitHub variables
+variable "github_base_url" {
+  type        = string
+  description = "The base URL of the GitHub instance (e.g., https://github.com)."
+  default     = "https://github.com"
+}
+
 variable "github_conn_name" { type = string }
 variable "github_repo_owner" { type = string }
 variable "github_repo_name" { type = string }

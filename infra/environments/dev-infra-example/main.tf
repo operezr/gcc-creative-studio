@@ -55,6 +55,7 @@ module "creative_studio_platform" {
   frontend_custom_audiences = var.frontend_custom_audiences
   firebase_site_id          = var.firebase_site_id != "" ? var.firebase_site_id : var.gcp_project_id
   github_conn_name          = var.github_conn_name
+  github_base_url           = var.github_base_url
   github_repo_owner         = var.github_repo_owner
   github_repo_name          = var.github_repo_name
   github_branch_name        = var.github_branch_name
