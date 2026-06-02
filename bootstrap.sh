@@ -384,9 +384,18 @@ setup_repo() {
     export REPO_ROOT
     success "Project root successfully set to: $REPO_ROOT"
 
-    GITHUB_REPO_OWNER=$(git remote get-url origin | sed -n 's/.*github.com\/\(.*\)\/.*/\1/p')
+    # Extract base URL (e.g., https://github.com)
+    GITHUB_BASE_URL=$(echo "$GITHUB_REPO_URL" | sed -E 's|^(https?://[^/]+).*|\1|')
+
+    # Extract path (e.g., owner/repo.git)
+    GITHUB_REPO_PATH=$(echo "$GITHUB_REPO_URL" | sed -E 's|^https?://[^/]+/||' | sed 's|/$||')
+
+    # Extract owner (everything before the last slash)
+    GITHUB_REPO_OWNER=$(echo "$GITHUB_REPO_PATH" | sed 's|/[^/]*$||')
+
     GITHUB_REPO_NAME=$REPO_CLONE_DIR
 
+    info "Detected GitHub base URL: $GITHUB_BASE_URL"
     info "Detected GitHub owner: $GITHUB_REPO_OWNER"
     info "Detected GitHub repo name: $GITHUB_REPO_NAME"
 }
@@ -422,6 +431,7 @@ configure_environment() {
         mv "$ENV_DIR/dev.tfvars" "$TFVARS_FILE_PATH"
 
         sed -i.bak "s|^[#[:space:]]*gcp_project_id[[:space:]]*=.*|gcp_project_id = \"$GCP_PROJECT_ID\"|g" "$TFVARS_FILE_PATH"
+        sed -i.bak "s|^[#[:space:]]*github_base_url[[:space:]]*=.*|github_base_url = \"$GITHUB_BASE_URL\"|g" "$TFVARS_FILE_PATH"
         sed -i.bak "s|^[#[:space:]]*github_repo_owner[[:space:]]*=.*|github_repo_owner = \"$GITHUB_REPO_OWNER\"|g" "$TFVARS_FILE_PATH"
         sed -i.bak "s|^[#[:space:]]*github_repo_name[[:space:]]*=.*|github_repo_name = \"$GITHUB_REPO_NAME\"|g" "$TFVARS_FILE_PATH"
 

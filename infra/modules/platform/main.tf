@@ -75,7 +75,7 @@ resource "google_cloudbuildv2_repository" "source_repo" {
   name              = var.github_repo_name
   location          = var.gcp_region
   parent_connection = "projects/${var.gcp_project_id}/locations/${var.gcp_region}/connections/${var.github_conn_name}"
-  remote_uri        = "https://github.com/${var.github_repo_owner}/${var.github_repo_name}.git"
+  remote_uri        = "${var.github_base_url}/${var.github_repo_owner}/${var.github_repo_name}.git"
 }
 
 # Postgres Database related
