@@ -152,7 +152,16 @@ start_sql_proxy() {
 
     # 2. Download Proxy (if missing)
     if [ ! -f "cloud-sql-proxy" ]; then
-        curl -o cloud-sql-proxy https://storage.googleapis.com/cloud-sql-connectors/cloud-sql-proxy/v2.8.0/cloud-sql-proxy.linux.amd64
+        TARGET_OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+        TARGET_ARCH=$(uname -m)
+        case $TARGET_ARCH in
+            x86_64) TARGET_ARCH="amd64" ;;
+            aarch64|arm64) TARGET_ARCH="arm64" ;;
+        esac
+
+        DOWNLOAD_URL="https://storage.googleapis.com/cloud-sql-connectors/cloud-sql-proxy/v2.8.0/cloud-sql-proxy.${TARGET_OS}.${TARGET_ARCH}"
+        info "Downloading Cloud SQL Proxy for ${TARGET_OS}/${TARGET_ARCH}..."
+        curl -o cloud-sql-proxy "$DOWNLOAD_URL"
         chmod +x cloud-sql-proxy
     fi
 
@@ -164,7 +173,13 @@ start_sql_proxy() {
     # 4. Wait for Readiness
     echo -n "   Waiting for proxy connection..."
     for i in {1..30}; do
-        if (echo > /dev/tcp/127.0.0.1/5432) >/dev/null 2>&1; then
+	# Use nc (netcat) on macOS, fallback to /dev/tcp on Linux
+        if command -v nc >/dev/null 2>&1; then
+            if nc -z 127.0.0.1 5432 >/dev/null 2>&1; then
+                echo " Connected!"
+                return 0
+            fi
+        elif (echo > /dev/tcp/127.0.0.1/5432) >/dev/null 2>&1; then
             echo " Connected!"
             return 0
         fi
