@@ -68,6 +68,7 @@ class GenerationModelEnum(str, Enum):
     VEO_3_QUALITY = "veo-3.0-generate-001"
     VEO_3_FAST_PREVIEW = "veo-3.0-fast-generate-preview"
     VEO_3_QUALITY_PREVIEW = "veo-3.0-generate-preview"
+
     # Audio-Specific Models
     LYRIA_002 = "lyria-002"
     CHIRP_3 = "chirp_3"
@@ -90,25 +91,6 @@ class GenerationModelEnum(str, Enum):
     IMAGEGEN_006 = "imagegeneration@006"
     IMAGEGEN_005 = "imagegeneration@005"
     IMAGEGEN_002 = "imagegeneration@002"
-    GEMINI_2_5_PRO = "gemini-2.5-pro"
-    GEMINI_2_5_FLASH = "gemini-2.5-flash"
-    GEMINI_2_5_FLASH_IMAGE_PREVIEW = "gemini-2.5-flash-image-preview"
-    GEMINI_2_5_FLASH_IMAGE = "gemini-2.5-flash-image"
-    GEMINI_3_1_PRO_PREVIEW = "gemini-3.1-pro-preview"
-    GEMINI_3_PRO_IMAGE_PREVIEW = "gemini-3-pro-image-preview"
-    GEMINI_3_1_FLASH_IMAGE_PREVIEW = "gemini-3.1-flash-image-preview"
-    GEMINI_3_FLASH_PREVIEW = "gemini-3-flash-preview"
-    VTO = "virtual-try-on-001"
-
-    # Video-Specific Models
-    VEO_3_1_FAST_GENERATE_001 = "veo-3.1-fast-generate-001"
-    VEO_3_1_LITE_GENERATE_001 = "veo-3.1-lite-generate-001"
-    VEO_3_1_GENERATE_001 = "veo-3.1-generate-001"
-    VEO_3_1_PREVIEW = "veo-3.1-generate-preview"
-    VEO_3_FAST = "veo-3.0-fast-generate-001"
-    VEO_3_QUALITY = "veo-3.0-generate-001"
-    VEO_3_FAST_PREVIEW = "veo-3.0-fast-generate-preview"
-    VEO_3_QUALITY_PREVIEW = "veo-3.0-generate-preview"
     VEO_2_FAST = "veo-2.0-generate-001"
     VEO_2_QUALITY = "veo-2.0-fast-generate-001"
     VEO_2_GENERATE_EXP = "veo-2.0-generate-exp"
